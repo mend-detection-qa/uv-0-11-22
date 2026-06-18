@@ -1,0 +1,16 @@
+[project]
+name = "probe-api"
+version = "0.1.0"
+description = "Workspace member: API layer (depends on probe-core via workspace)"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.0",
+    "probe-core",
+]
+
+[tool.uv.sources]
+probe-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
