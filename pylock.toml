@@ -1,0 +1,55 @@
+# pylock.toml — PEP 751 format
+# Exercises: pylock-lock-version validation (uv 0.11.22)
+# The lock-version field is validated differently in 0.11.22.
+# This file is a COMPANION to uv.lock — it demonstrates the
+# PEP 751 lockfile format so Mend's parser can be validated
+# against both formats.
+
+lock-version = "1.0"
+created-by = "uv 0.11.22"
+requires-python = ">=3.11"
+
+[[packages]]
+name = "requests"
+version = "2.32.3"
+
+[[packages.wheels]]
+name = "requests-2.32.3-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl"
+hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"
+
+[[packages]]
+name = "certifi"
+version = "2024.12.14"
+
+[[packages.wheels]]
+name = "certifi-2024.12.14-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/a5/32/8f6669fc4798494966bf446c8c4a162e0b5d893dff088afddf76414f70e/certifi-2024.12.14-py3-none-any.whl"
+hash = "sha256:1275f7a45be9163158c33b9c6d3b4bfeb92769684f09ee21de55d47f1b73e1a5"
+
+[[packages]]
+name = "charset-normalizer"
+version = "3.4.1"
+
+[[packages.wheels]]
+name = "charset_normalizer-3.4.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/f4/84/6b76ef7f5a36bbd17cac7c4c7f84a5cd5d2a54f3c10fb6aaee2d0c68ec3/charset_normalizer-3.4.1-py3-none-any.whl"
+hash = "sha256:d98b1668f06378c6dbefec3b92299716b931cd4e6061f3c875a71ced1780ab85"
+
+[[packages]]
+name = "idna"
+version = "3.10"
+
+[[packages.wheels]]
+name = "idna-3.10-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl"
+hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"
+
+[[packages]]
+name = "urllib3"
+version = "2.3.0"
+
+[[packages.wheels]]
+name = "urllib3-2.3.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/c8/19/4ec628951a74043532ca2cf5d97b7b14863931476d117c471e8e2b1eb39f/urllib3-2.3.0-py3-none-any.whl"
+hash = "sha256:1cee9ad369867e88f074d23c33eb990e000b97c2c0c6a8b67d8f22b7c19cb7"
