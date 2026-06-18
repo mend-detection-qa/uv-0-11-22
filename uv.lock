@@ -1,0 +1,395 @@
+version = 1
+requires-python = ">=3.11"
+resolution-markers = [
+    "sys_platform == 'win32' and python_version >= '3.11'",
+    "(sys_platform == 'linux' or sys_platform == 'darwin') and python_full_version >= '3.11.0'",
+    "sys_platform != 'win32' and sys_platform != 'linux' and sys_platform != 'darwin'",
+]
+
+# Workspace root (virtual)
+[[package]]
+name = "workspace-root"
+version = "0.0.0"
+source = { virtual = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "requests", specifier = ">=2.31" },
+    { name = "colorama", specifier = ">=0.4.6", marker = "sys_platform == 'win32' and python_version >= '3.11'" },
+    { name = "uvloop", specifier = ">=0.19", marker = "(sys_platform == 'linux' or sys_platform == 'darwin') and python_full_version >= '3.11.0'" },
+]
+
+[package.dependency-groups]
+integration = [
+    { name = "httpx", specifier = ">=0.27" },
+]
+audit = [
+    { name = "pip-audit", specifier = ">=2.7" },
+]
+
+# ── Workspace members ────────────────────────────────────────────
+
+[[package]]
+name = "probe-core"
+version = "0.1.0"
+source = { editable = "packages/core" }
+
+[package.dependencies]
+click = [
+    { name = "click", specifier = ">=8.1" },
+]
+
+[[package]]
+name = "probe-api"
+version = "0.1.0"
+source = { editable = "packages/api" }
+
+[package.dependencies]
+flask = [
+    { name = "flask", specifier = ">=3.0" },
+]
+probe-core = [
+    { name = "probe-core" },
+]
+
+# ── Third-party packages ─────────────────────────────────────────
+
+[[package]]
+name = "blinker"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/21/28/9b3f50ce0e048515135495f198351908d99540d69bfdc8c1d15b73dc55ce/blinker-1.9.0.tar.gz"
+hash = "sha256:b4ce2265a7abece45e7cc896e98dbebe6cead56bcf805a3d23136d145f5445bf"
+size = 22460
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/10/cb/f2ad4230dc2eb1a74edf38f1a38b9b52277f75bef262d8908e60d957e13c/blinker-1.9.0-py3-none-any.whl"
+hash = "sha256:ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc"
+size = 8458
+
+[[package]]
+name = "certifi"
+version = "2024.12.14"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/0f/bd/1d41ce99ed6b4fe99c74bbef29a7a90abac1b8e34f8e4a3e9d259c89e6a/certifi-2024.12.14.tar.gz"
+hash = "sha256:b650d30f370c2b724812bee08008be0c4163b163ddaec3f2546c1caf65f191db"
+size = 167624
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/a5/32/8f6669fc4798494966bf446c8c4a162e0b5d893dff088afddf76414f70e/certifi-2024.12.14-py3-none-any.whl"
+hash = "sha256:1275f7a45be9163158c33b9c6d3b4bfeb92769684f09ee21de55d47f1b73e1a5"
+size = 164927
+
+[[package]]
+name = "charset-normalizer"
+version = "3.4.1"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/16/b0/572805e227f01586461c80e0fd25d65a2115599cc9dad4b89db6ee04f039/charset_normalizer-3.4.1.tar.gz"
+hash = "sha256:44251f18cd68a75b56585dd00dae26183e102cd5e0f9f1466e6df5da2ed64ea3"
+size = 123188
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/f4/84/6b76ef7f5a36bbd17cac7c4c7f84a5cd5d2a54f3c10fb6aaee2d0c68ec3/charset_normalizer-3.4.1-py3-none-any.whl"
+hash = "sha256:d98b1668f06378c6dbefec3b92299716b931cd4e6061f3c875a71ced1780ab85"
+size = 49890
+
+[[package]]
+name = "click"
+version = "8.1.8"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+colorama = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/b9/2e/0090cbf739cee7d23781ad4b89a9894a41538e4fcf4c31dcdd705b78eb8b/click-8.1.8.tar.gz"
+hash = "sha256:ed53c9d8990d83c2a27deae68e4ee337473f6330c040a31d4225c9574d16096a"
+size = 226593
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/7e/d4/7ebea752282fb631bbef43ab17a57e7e94ca60d35abc284c8c8c04b48a08/click-8.1.8-py3-none-any.whl"
+hash = "sha256:63c132bbbed01578a06712a2d1f497bb62d9c1a7ce232b9b6809f5b5a35bbf6"
+size = 98188
+
+[[package]]
+name = "colorama"
+version = "0.4.6"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz"
+hash = "sha256:08695f5cb7ed6e0531a20572697297d53cf2da347dfa18949f6f347ebe297cca"
+size = 27697
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl"
+hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
+size = 25335
+
+[[package]]
+name = "flask"
+version = "3.1.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+blinker = [
+    { name = "blinker", specifier = ">=1.9" },
+]
+click = [
+    { name = "click", specifier = ">=8.1.3" },
+]
+itsdangerous = [
+    { name = "itsdangerous", specifier = ">=2.2" },
+]
+jinja2 = [
+    { name = "jinja2", specifier = ">=3.1.2" },
+]
+werkzeug = [
+    { name = "werkzeug", specifier = ">=3.1" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/89/50/dff6380f1c7f84135484e176e0cac8690af72fa90e932ad2a0a60e28c609/flask-3.1.0.tar.gz"
+hash = "sha256:5f873c5184c897c8d9d1b05df1e3d01b14910ce69607a117bd3277098a5836ac"
+size = 680824
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/af/47/93213ee66ef8fae3b93b3e29206f6b251e65c97bd91d8e1c5596ef15af0a/flask-3.1.0-py3-none-any.whl"
+hash = "sha256:d667207822eb83f1c4b50949b1d8d232d7d0b99e38b81bf5848a8e63e8c52c4"
+size = 102979
+
+[[package]]
+name = "httpcore"
+version = "1.0.7"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+certifi = [
+    { name = "certifi", specifier = "*" },
+]
+h11 = [
+    { name = "h11", specifier = ">=0.13,<0.15" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/6a/41/d7d0a89eb493922c37d343b607bc1b5da7f5be7e383740b4753ad8943e90/httpcore-1.0.7.tar.gz"
+hash = "sha256:8551cb62a169ec7162ac7be8d4817d561f60e08eaa485234898414bb5a8a0b4c"
+size = 85196
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/87/f5/72347bc88306acb359581ac4d52579fe358b097312eb62b8e2f3b75b4aef/httpcore-1.0.7-py3-none-any.whl"
+hash = "sha256:a3fff8f43dc260d5bd363d9f9cf1a158e4f9d0ca2b77789c2f1f2fc3ca5f9b5"
+size = 78551
+
+[[package]]
+name = "httpx"
+version = "0.28.1"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+certifi = [
+    { name = "certifi", specifier = "*" },
+]
+httpcore = [
+    { name = "httpcore", specifier = "==1.*" },
+]
+idna = [
+    { name = "idna", specifier = "*" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/b1/df/48c586a5fe32a0f01324ee087459e112ebb7224f646c0b5023f5e79e9956/httpx-0.28.1.tar.gz"
+hash = "sha256:75e98c5f16b0f35b567856f597f06ff2270a374470a5c2392242528e3e3e42fc"
+size = 141406
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/2a/39/e50c7c3a983047577ee07d2a9e53faf5a69493943ec3f6a384bdc792deb2/httpx-0.28.1-py3-none-any.whl"
+hash = "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"
+size = 73517
+
+[[package]]
+name = "h11"
+version = "0.14.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz"
+hash = "sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"
+size = 100418
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl"
+hash = "sha256:e3fe4ac4b851c468cc8363d500169d18de902c66abed5e2b8cde7c06bf4ef38"
+size = 58259
+
+[[package]]
+name = "idna"
+version = "3.10"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/f1/70/7703c29685631f5a7d1d69d6f8cbc05f538afa0a7a6f10ea5e2a451e3efd/idna-3.10.tar.gz"
+hash = "sha256:12f65c9b470abda6dc35cf8e63cc574b1c52b11f2af143a73fbe1d55c15ff786"
+size = 190490
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl"
+hash = "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"
+size = 70442
+
+[[package]]
+name = "itsdangerous"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/9c/cb/8ac0172223afbccb63986cc25049b154ecfb5e85932587206f42317be31d/itsdangerous-2.2.0.tar.gz"
+hash = "sha256:e0050c0b7da1eea53ffaf149c0cfbb5c6e2e2b69c4bef22c81fa6eb73e5f6173"
+size = 54410
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/04/96/92447566d16df59b2a776c0fb82dbc4d9e07cd95062562af01e408583fc4/itsdangerous-2.2.0-py3-none-any.whl"
+hash = "sha256:c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef"
+size = 16234
+
+[[package]]
+name = "jinja2"
+version = "3.1.5"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+markupsafe = [
+    { name = "markupsafe", specifier = ">=2.0" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/af/92/b3130cbbf5591acf9ade8708c365f3238046ac7cb8ccba6e81abccb0ccff/jinja2-3.1.5.tar.gz"
+hash = "sha256:8fefff8dc3034e27bb80d67c671eb8a9bc424c0ef4c0826edbff304cceff43bb"
+size = 244800
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/bd/0f/2ba5fbcd631e3e88689309dbe978c5769d965ebc4d3a4f2a054d237101d3/jinja2-3.1.5-py3-none-any.whl"
+hash = "sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb"
+size = 134596
+
+[[package]]
+name = "markupsafe"
+version = "3.0.2"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+hash = "sha256:ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
+size = 20537
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/04/80/73bc6c61e8b2eb32c4dcce7c2a3ca6dde79843d4c9ca48ef66ee4edab5f4/markupsafe-3.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+hash = "sha256:efc1913fd2ca4f334418481c7e595c00aad186563bbc1ec76067848c7ca0a933"
+size = 23148
+
+[[package]]
+name = "pip-audit"
+version = "2.7.3"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+requests = [
+    { name = "requests", specifier = ">=2.31" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/8d/1b/7f5e2e41d8ebce6dc5b11bd75e82dda0a6e7069b3f74d485c69a2d7a2fb2/pip_audit-2.7.3.tar.gz"
+hash = "sha256:b9e4a7900e83c3b6e60b359cabe91e84e8aa5cccc2b3a6cb8e71a6cdbc7b56cb"
+size = 67890
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/df/3e/a9c53eb82e0f2e8e8b87a32fb48d25b2be4b4f76d63e7af5e1d81f8b5da5/pip_audit-2.7.3-py3-none-any.whl"
+hash = "sha256:c6e4a63dbbc59d3e22b2b4de985f8f62b77dd1d8e3b0b79fd7b5b5a3c4f94d07"
+size = 65432
+
+[[package]]
+name = "requests"
+version = "2.32.3"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+certifi = [
+    { name = "certifi", specifier = ">=2017.4.17" },
+]
+charset-normalizer = [
+    { name = "charset-normalizer", specifier = ">=2,<4" },
+]
+idna = [
+    { name = "idna", specifier = ">=2.5,<4" },
+]
+urllib3 = [
+    { name = "urllib3", specifier = ">=1.21.1,<3" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz"
+hash = "sha256:55365417734eb18255590a9f9d36b2e5e564d5faf272f306f93d71f87e3f4d"
+size = 131218
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl"
+hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"
+size = 64928
+
+[[package]]
+name = "urllib3"
+version = "2.3.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/aa/63/e53da845320b757bf29ef6a9062f5c669fe997973f966045cb019c3f4b66/urllib3-2.3.0.tar.gz"
+hash = "sha256:f8cd7e7d1e97e6ce5a5b5f5c5c5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5"
+size = 307696
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/c8/19/4ec628951a74043532ca2cf5d97b7b14863931476d117c471e8e2b1eb39f/urllib3-2.3.0-py3-none-any.whl"
+hash = "sha256:1cee9ad369867e88f074d23c33eb990e000b97c2c0c6a8b67d8f22b7c19cb7"
+size = 128369
+
+[[package]]
+name = "uvloop"
+version = "0.21.0"
+source = { registry = "https://pypi.org/simple" }
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/af/e5/4e4e70e559fecf2b5de46ee8efbba16b48be5e24b53d69b8c45b884f50c9/uvloop-0.21.0.tar.gz"
+hash = "sha256:3bf12b0fda68447806a7ad847bfa591613177275d35b6724b1ee573faa3704e3"
+size = 2089051
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/81/4f/93bc80ce77f4572cdb34da1474f1ee89d0f66dbb28a5b8b7fc4f9e2eba49/uvloop-0.21.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+hash = "sha256:3a36c510bc7bd6eb2de58d9fe37e6d1b7f08fb5e7c80e5f5e0ca90f6a61bc024"
+size = 3574188
+
+[[package]]
+name = "werkzeug"
+version = "3.1.3"
+source = { registry = "https://pypi.org/simple" }
+
+[package.dependencies]
+markupsafe = [
+    { name = "markupsafe", specifier = ">=2.1.1" },
+]
+
+[package.sdist]
+url = "https://files.pythonhosted.org/packages/9f/69/83029f1f6300c5fb2471d621ab06f6ec6b3324685a2ce0f9777fd4a8b71e/werkzeug-3.1.3.tar.gz"
+hash = "sha256:60723ce945c19328679790e3282cc758aa4a6040e4bb330f53d30fa546d44746"
+size = 806557
+
+[[package.wheels]]
+url = "https://files.pythonhosted.org/packages/52/24/ab9a702e99ea69ac73a1ecf3dae5b5d5c33e8f9b6d88be52b6a6e1bfc4db/werkzeug-3.1.3-py3-none-any.whl"
+hash = "sha256:e5f3b5a6e19cdb4a0cb29b3a9c9d7c8d8e7d1f8a8b8c8d8e8f8a8b8c8d8e8f8"
+size = 224498
