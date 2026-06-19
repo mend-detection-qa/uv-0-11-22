@@ -1,128 +1,171 @@
-# Probe: uv 0.11.22 Release Features
+# Probe: workspace-exclusive-groups
 
-## Probe metadata
+## Purpose
 
-| Field              | Value                                          |
-|--------------------|------------------------------------------------|
-| PM                 | uv                                             |
-| PM version         | 0.11.22                                        |
-| Patterns exercised | marker-ordering-semantics, workspace-exclusive-groups, pylock-lock-version |
-| Generated at       | 2026-06-18T23:31:54Z                           |
-| Schema version     | 1.2                                            |
-| Categories         | tree_structure, version_constraints, lockfile_format |
+Exercises **workspace-exclusive dependency groups** introduced in uv
+0.11.x (specifically confirmed in 0.11.22). A workspace-exclusive group
+is a `[dependency-groups]` entry declared at the **virtual workspace
+root** that is NOT propagated to member packages.
 
-## What this probe exercises
+This probe verifies that Mend SCA detects the workspace-root groups
+(`integration`, `audit`) as distinct groups and does not:
 
-This probe covers three uv 0.11.22 release changes in a single
-workspace project.
+- Silently drop them.
+- Merge/flatten them into member package dependencies.
+- Incorrectly attribute them to a member.
+- Fail to parse `[dependency-groups]` on a virtual root with no
+  `[project]` section.
 
-### 1. marker-ordering-semantics
-
-PEP 508 environment markers with compound conditions were generated
-in a different ordering by the uv 0.11.22 resolver. This affects
-how Mend parses the marker string from the lockfile.
-
-Two compound-marker deps are declared at the workspace root in
-`[tool.uv.dev-dependencies]`:
-
-- `colorama>=0.4.6; sys_platform == 'win32' and python_version >= '3.11'`
-  — Windows-only, compound `and` marker combining `sys_platform`
-  and `python_version`.
-- `uvloop>=0.19; (sys_platform == 'linux' or sys_platform == 'darwin') and python_full_version >= '3.11.0'`
-  — non-Windows, compound marker combining `or` with
-  `python_full_version`.
-
-The `uv.lock` `resolution-markers` header reflects the three
-resolution branches uv computed.
-
-**Mend failure mode:** Mend may strip the compound marker to the
-first condition only, or drop the package entirely on non-matching
-hosts. The expected tree encodes the marker exactly as it appears
-in the lockfile.
-
-### 2. workspace-exclusive-groups
-
-The workspace root is a **virtual root** (no `[project]` section).
-It declares `[dependency-groups]` at the root level:
-
-- `integration = ["httpx>=0.27"]`
-- `audit = ["pip-audit>=2.7"]`
-
-These groups are **NOT** present in any workspace member's
-`pyproject.toml`. uv 0.11.22 changed how such workspace-exclusive
-groups are discovered when building the dependency tree.
-
-Two workspace members:
-- `packages/core` — `click>=8.1`, no dependency groups.
-- `packages/api` — `flask>=3.0` + `probe-core` (workspace ref).
-
-**Mend failure mode:** Mend may not discover workspace-root
-`[dependency-groups]` when the root is virtual, causing `httpx`
-and `pip-audit` (and their transitives) to be silently dropped.
-
-### 3. pylock-lock-version
-
-`pylock.toml` (PEP 751 format) is present alongside `uv.lock`.
-The `lock-version = "1.0"` field exercises the validation path
-changed in uv 0.11.22. The `pylock.toml` covers the basic
-`requests` + its transitives subset.
-
-**Mend failure mode:** Mend's parser may not recognize `pylock.toml`
-at all (falling back to `uv.lock` only), or may fail to parse the
-`lock-version` field correctly. The expected tree is built from
-`uv.lock` (the authoritative source); `pylock.toml` is the probe
-artifact for the format-validation test.
-
-## File layout
+## Structure
 
 ```
-uv-0.11.22-release-features-20260618-233154/
-├── pyproject.toml         workspace root (virtual, no [project])
-├── uv.lock                shared workspace lockfile
-├── pylock.toml            PEP 751 companion lockfile (lock-version probe)
-├── .python-version        Python 3.11 (higher PIP-chain precedence than requires-python)
+workspace-exclusive-groups-<timestamp>/
+├── pyproject.toml           # Virtual workspace root — no [project]
+├── uv.lock                  # Shared lockfile (uv 0.11.22 format)
+├── .python-version          # 3.11 (Mend PIP-chain precedence)
 ├── packages/
 │   ├── core/
-│   │   ├── pyproject.toml
+│   │   ├── pyproject.toml   # Member: depends on click
 │   │   └── src/core/__init__.py
 │   └── api/
-│       ├── pyproject.toml
+│       ├── pyproject.toml   # Member: depends on flask + core (workspace)
 │       └── src/api/__init__.py
-├── README.md              this file
-└── expected-tree.json     expected dependency tree
+├── README.md
+└── expected-tree.json
 ```
+
+## Workspace-exclusive groups
+
+The root `pyproject.toml` defines two groups:
+
+```toml
+[dependency-groups]
+integration = [
+    "httpx>=0.27",
+]
+audit = [
+    "pip-audit>=2.7",
+]
+```
+
+Neither `packages/core/pyproject.toml` nor `packages/api/pyproject.toml`
+declares these groups. They exist only at the workspace root.
+
+## Key lockfile feature: `[package.dependency-groups]`
+
+The root package entry in `uv.lock` uses the NEW key introduced in
+uv 0.11.x:
+
+```toml
+[[package]]
+name = "workspace-exclusive-groups"
+version = "0.0.0"
+source = { virtual = "." }
+
+[package.dependency-groups]
+audit = [
+    { name = "pip-audit", specifier = ">=2.7" },
+]
+integration = [
+    { name = "httpx", specifier = ">=0.27" },
+]
+```
+
+This is intentionally NOT `[package.dev-dependencies]` (the legacy key).
+A Mend resolver that only reads the legacy key will drop the workspace-
+exclusive groups entirely.
+
+## Packages
+
+| Package | Version | Group | Source |
+|---------|---------|-------|--------|
+| core | 0.1.0 | main (workspace) | local |
+| api | 0.1.0 | main (workspace) | local |
+| click | 8.1.8 | main | registry |
+| flask | 3.1.1 | main | registry |
+| blinker | 1.8.2 | main | registry |
+| itsdangerous | 2.2.0 | main | registry |
+| jinja2 | 3.1.5 | main | registry |
+| markupsafe | 3.0.2 | main | registry |
+| werkzeug | 3.1.3 | main | registry |
+| httpx | 0.27.2 | integration | registry |
+| anyio | 4.4.0 | integration | registry |
+| certifi | 2024.8.30 | integration | registry |
+| httpcore | 1.0.7 | integration | registry |
+| h11 | 0.14.0 | integration | registry |
+| idna | 3.10 | integration | registry |
+| sniffio | 1.3.1 | integration | registry |
+| pip-audit | 2.7.3 | audit | registry |
+| packaging | 24.2 | audit | registry |
+| pip | 24.3.1 | audit | registry |
+| pip-api | 0.0.34 | audit | registry |
+| requests | 2.32.3 | audit | registry |
+| charset-normalizer | 3.4.0 | audit | registry |
+| urllib3 | 2.2.3 | audit | registry |
+| resolvelib | 1.0.1 | audit | registry |
+| rich | 13.9.4 | audit | registry |
+| markdown-it-py | 3.0.0 | audit | registry |
+| mdurl | 0.1.2 | audit | registry |
+| pygments | 2.18.0 | audit | registry |
+| platformdirs | 4.3.6 | audit | registry |
+
+Note: certifi, idna, and requests appear as transitive deps of both
+`httpx` (integration group) and `pip-audit` (audit group). In the
+expected tree they are listed once with the group of their primary
+resolver path.
 
 ## Python version detection
 
-`.python-version` declares `3.11` and takes higher precedence in
-Mend's PIP detection chain than `pyproject.toml`'s
-`requires-python`. Both files are consistent (>=3.11 / 3.11).
-Mend will use `.python-version` to determine the Python runtime.
+Mend follows the PIP precedence chain for Python version detection.
+`.python-version` (present in this probe, value: `3.11`) has HIGHER
+precedence than `[project] requires-python` in `pyproject.toml`.
+
+- **File used by Mend:** `.python-version` = `3.11`
+- **Backup manifest:** members each declare `requires-python = ">=3.11"`
+- Both declare Python 3.11 — no conflict.
 
 ## Mend config
 
-**Bucket B — no `.whitesource` required.**
+**Bucket B — no `.whitesource` emitted.**
 
-uv has partial dynamic version detection from the manifest (via
-`requires-python` in `pyproject.toml` and `.python-version`). The
-uv tool itself is NOT in the `install-tool` list, so it cannot be
-pinned via `scanSettings.versioning`. Only `python` is pinnable,
-and dynamic detection covers this probe's requirements.
+`python-uv` has partial dynamic version detection. Mend reads the Python
+version from `.python-version` (highest priority in the PIP chain). The
+`uv` tool itself is NOT in the `install-tool` list, so the uv version
+cannot be pinned via `scanSettings.versioning`. Dynamic detection covers
+the Python version. No branch scoping, project-token routing, or
+resolver-toggle behavior is under test here.
 
-No `.whitesource` is emitted. No `whitesource.config` is needed
-(the default `python.resolveDependencies=true` path is sufficient).
+## Mend failure modes under test
 
-## Resolver knowledge note
+1. **Workspace-exclusive groups silently dropped** — `[package.dependency-groups]`
+   in the lockfile not recognized; httpx and pip-audit not reported.
+2. **Legacy key confusion** — resolver reads `[package.dev-dependencies]`
+   but not `[package.dependency-groups]`; groups disappear.
+3. **Groups merged into member deps** — httpx or pip-audit attributed to
+   `core` or `api` instead of the virtual root.
+4. **Virtual root parse failure** — root has no `[project]` section;
+   parser errors out and skips the entire workspace.
 
-The Mend UA Python resolver flows uv projects through the Pip
-resolver path (see `### UV Project Filtering` in the resolver
-knowledge). The `MEND_SCA_UV_PROJECTS` environment variable can
-be used to exclude UV-managed project manifests from scan, but
-this probe does NOT set it — we want all manifests scanned.
+## Resolver note (Mend UA)
 
-The resolver does NOT natively understand `[dependency-groups]`
-(PEP 735) — this is a known limitation. The expected tree for the
-workspace-exclusive groups pattern encodes what Mend WILL emit
-(groups may be dropped or flattened), not the ground truth. The
-probe README explicitly flags this so the downstream comparator
-treats it as a known divergence.
+The Mend UA Python resolver (as of the fetched knowledge at
+`2026-06-19T07:41:29Z`, SHA `877d6d84`) does not document explicit
+handling of PEP 735 `[dependency-groups]` nor workspace-exclusive groups.
+The resolver knowledge documents `### UV Project Filtering` via
+`MEND_SCA_UV_PROJECTS` env var. Mend flows uv projects through the Pip
+resolver path. Whether it reads `[package.dependency-groups]` from the
+lockfile is therefore exploratory — this probe is designed to catch the
+regression either way.
+
+## Probe metadata
+
+```json
+{
+  "pattern": "workspace-exclusive-groups",
+  "pm": "uv",
+  "pm_version_tested": "0.11.22",
+  "generated_at": "2026-06-19T07:41:59Z",
+  "resolver_sha": "877d6d848391d838fb31b38dadf37d3ad0696cbc",
+  "resolver_fetched_at": "2026-06-19T07:41:29Z"
+}
+```
