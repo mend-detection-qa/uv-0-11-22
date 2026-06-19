@@ -1,105 +1,80 @@
 {
   "schema_version": "1.2",
   "pm": "uv",
-  "pm_version_tested": "0.11.22",
+  "pm_version_tested": "0.11",
   "pm_version_under_test": "0.11.22",
-  "source_file": "uv.lock",
-  "generated_at": "2026-06-18T23:31:54Z",
+  "source_file": "pyproject.toml",
+  "generated_at": "2026-06-19T07:41:59Z",
   "root": {
-    "name": "workspace-root",
+    "name": "workspace-exclusive-groups",
     "version": "0.0.0",
     "dependencies": [
-      "requests",
-      "colorama",
-      "uvloop",
+      "core",
+      "api",
       "httpx",
-      "pip-audit",
-      "probe-core",
-      "probe-api"
+      "pip-audit"
     ]
   },
   "packages": {
-    "requests": {
-      "version": "2.32.3",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "dev",
-      "marker": null,
-      "dependencies": [
-        "certifi",
-        "charset-normalizer",
-        "idna",
-        "urllib3"
-      ],
-      "hashes": [
-        "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6"
-      ]
-    },
-    "colorama": {
-      "version": "0.4.6",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "dev",
-      "marker": "sys_platform == 'win32' and python_version >= '3.11'",
-      "dependencies": [],
-      "hashes": [
-        "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"
-      ]
-    },
-    "uvloop": {
-      "version": "0.21.0",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "dev",
-      "marker": "(sys_platform == 'linux' or sys_platform == 'darwin') and python_full_version >= '3.11.0'",
-      "dependencies": [],
-      "hashes": [
-        "sha256:3a36c510bc7bd6eb2de58d9fe37e6d1b7f08fb5e7c80e5f5e0ca90f6a61bc024"
-      ]
-    },
-    "httpx": {
-      "version": "0.28.1",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "integration",
-      "marker": null,
-      "dependencies": [
-        "certifi",
-        "httpcore",
-        "idna"
-      ],
-      "hashes": [
-        "sha256:d909fcccc110f8c7faf814ca82a9a4d816bc5a6dbfea25d6591d6985b8ba59ad"
-      ]
-    },
-    "pip-audit": {
-      "version": "2.7.3",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "audit",
-      "marker": null,
-      "dependencies": [
-        "requests"
-      ],
-      "hashes": [
-        "sha256:c6e4a63dbbc59d3e22b2b4de985f8f62b77dd1d8e3b0b79fd7b5b5a3c4f94d07"
-      ]
-    },
-    "probe-core": {
+    "api": {
       "version": "0.1.0",
       "source": "local",
       "source_detail": {
-        "path": "packages/core"
+        "path": "packages/api",
+        "workspace": true
+      },
+      "group": "main",
+      "marker": null,
+      "editable": true,
+      "dependencies": [
+        "core",
+        "flask"
+      ]
+    },
+    "anyio": {
+      "version": "4.4.0",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": [
+        "idna",
+        "sniffio"
+      ]
+    },
+    "blinker": {
+      "version": "1.8.2",
+      "source": "registry",
+      "group": "main",
+      "marker": null,
+      "dependencies": []
+    },
+    "certifi": {
+      "version": "2024.8.30",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": []
+    },
+    "charset-normalizer": {
+      "version": "3.4.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "click": {
+      "version": "8.1.8",
+      "source": "registry",
+      "group": "main",
+      "marker": null,
+      "dependencies": []
+    },
+    "core": {
+      "version": "0.1.0",
+      "source": "local",
+      "source_detail": {
+        "path": "packages/core",
+        "workspace": true
       },
       "group": "main",
       "marker": null,
@@ -108,93 +83,9 @@
         "click"
       ]
     },
-    "probe-api": {
-      "version": "0.1.0",
-      "source": "local",
-      "source_detail": {
-        "path": "packages/api"
-      },
-      "group": "main",
-      "marker": null,
-      "editable": true,
-      "dependencies": [
-        "flask",
-        "probe-core"
-      ]
-    },
-    "certifi": {
-      "version": "2024.12.14",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:1275f7a45be9163158c33b9c6d3b4bfeb92769684f09ee21de55d47f1b73e1a5"
-      ]
-    },
-    "charset-normalizer": {
-      "version": "3.4.1",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:d98b1668f06378c6dbefec3b92299716b931cd4e6061f3c875a71ced1780ab85"
-      ]
-    },
-    "idna": {
-      "version": "3.10",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:946d195a0d259cbba61165e88e65941f16e9b36ea6ddb97f00452bae8b1287d3"
-      ]
-    },
-    "urllib3": {
-      "version": "2.3.0",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:1cee9ad369867e88f074d23c33eb990e000b97c2c0c6a8b67d8f22b7c19cb7"
-      ]
-    },
-    "click": {
-      "version": "8.1.8",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [
-        "colorama"
-      ],
-      "hashes": [
-        "sha256:63c132bbbed01578a06712a2d1f497bb62d9c1a7ce232b9b6809f5b5a35bbf6"
-      ]
-    },
     "flask": {
-      "version": "3.1.0",
+      "version": "3.1.1",
       "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
       "group": "main",
       "marker": null,
       "dependencies": [
@@ -203,117 +94,199 @@
         "itsdangerous",
         "jinja2",
         "werkzeug"
-      ],
-      "hashes": [
-        "sha256:d667207822eb83f1c4b50949b1d8d232d7d0b99e38b81bf5848a8e63e8c52c4"
-      ]
-    },
-    "blinker": {
-      "version": "1.9.0",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:ba0efaa9080b619ff2f3459d1d500c57bddea4a6b424b60a91141db6fd2f08bc"
-      ]
-    },
-    "itsdangerous": {
-      "version": "2.2.0",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:c6242fc49e35958c8b15141343aa660db5fc54d4f13a1db01a3f5891b98700ef"
-      ]
-    },
-    "jinja2": {
-      "version": "3.1.5",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [
-        "markupsafe"
-      ],
-      "hashes": [
-        "sha256:aba0f4dc9ed8013c424088f68a5c226f7d6097ed89b246d7749c2ec4175c6adb"
-      ]
-    },
-    "markupsafe": {
-      "version": "3.0.2",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:efc1913fd2ca4f334418481c7e595c00aad186563bbc1ec76067848c7ca0a933"
-      ]
-    },
-    "werkzeug": {
-      "version": "3.1.3",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [
-        "markupsafe"
-      ],
-      "hashes": [
-        "sha256:e5f3b5a6e19cdb4a0cb29b3a9c9d7c8d8e7d1f8a8b8c8d8e8f8a8b8c8d8e8f8"
-      ]
-    },
-    "httpcore": {
-      "version": "1.0.7",
-      "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
-      "group": "main",
-      "marker": null,
-      "dependencies": [
-        "certifi",
-        "h11"
-      ],
-      "hashes": [
-        "sha256:a3fff8f43dc260d5bd363d9f9cf1a158e4f9d0ca2b77789c2f1f2fc3ca5f9b5"
       ]
     },
     "h11": {
       "version": "0.14.0",
       "source": "registry",
-      "source_detail": {
-        "registry": "https://pypi.org/simple"
-      },
+      "group": "integration",
+      "marker": null,
+      "dependencies": []
+    },
+    "httpcore": {
+      "version": "1.0.7",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": [
+        "certifi",
+        "h11"
+      ]
+    },
+    "httpx": {
+      "version": "0.27.2",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": [
+        "anyio",
+        "certifi",
+        "httpcore",
+        "idna",
+        "sniffio"
+      ]
+    },
+    "idna": {
+      "version": "3.10",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": []
+    },
+    "itsdangerous": {
+      "version": "2.2.0",
+      "source": "registry",
       "group": "main",
       "marker": null,
-      "dependencies": [],
-      "hashes": [
-        "sha256:e3fe4ac4b851c468cc8363d500169d18de902c66abed5e2b8cde7c06bf4ef38"
+      "dependencies": []
+    },
+    "jinja2": {
+      "version": "3.1.5",
+      "source": "registry",
+      "group": "main",
+      "marker": null,
+      "dependencies": [
+        "markupsafe"
+      ]
+    },
+    "markdown-it-py": {
+      "version": "3.0.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "mdurl"
+      ]
+    },
+    "markupsafe": {
+      "version": "3.0.2",
+      "source": "registry",
+      "group": "main",
+      "marker": null,
+      "dependencies": []
+    },
+    "mdurl": {
+      "version": "0.1.2",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "packaging": {
+      "version": "24.2",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "pip": {
+      "version": "24.3.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "pip-api": {
+      "version": "0.0.34",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "pip"
+      ]
+    },
+    "pip-audit": {
+      "version": "2.7.3",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "packaging",
+        "pip",
+        "pip-api",
+        "requests",
+        "resolvelib",
+        "rich"
+      ]
+    },
+    "platformdirs": {
+      "version": "4.3.6",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "pygments": {
+      "version": "2.18.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "requests": {
+      "version": "2.32.3",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "certifi",
+        "charset-normalizer",
+        "idna",
+        "urllib3"
+      ]
+    },
+    "resolvelib": {
+      "version": "1.0.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "rich": {
+      "version": "13.9.4",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "markdown-it-py",
+        "pygments"
+      ]
+    },
+    "sniffio": {
+      "version": "1.3.1",
+      "source": "registry",
+      "group": "integration",
+      "marker": null,
+      "dependencies": []
+    },
+    "urllib3": {
+      "version": "2.2.3",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "werkzeug": {
+      "version": "3.1.3",
+      "source": "registry",
+      "group": "main",
+      "marker": null,
+      "dependencies": [
+        "markupsafe"
       ]
     }
   },
   "project_metadata": {
-    "groups": ["main", "dev", "integration", "audit"],
-    "python_constraint": ">=3.11"
+    "groups": [
+      "main",
+      "integration",
+      "audit"
+    ]
   },
   "warnings": [
-    "Mend UA does not natively recognize PEP 735 [dependency-groups] in virtual workspace roots. Groups 'integration' and 'audit' may be dropped by the resolver. This expected tree encodes the ground truth (httpx and pip-audit present with their groups); downstream comparator should flag any mismatch as a known Mend limitation.",
-    "pylock.toml (PEP 751) is present alongside uv.lock. Mend's current resolver likely does not parse pylock.toml. The expected tree is built from uv.lock. If Mend ignores pylock.toml entirely, that is a known gap — record in comparator results.",
-    "Compound markers (colorama, uvloop) may be stripped to partial conditions or dropped on non-matching scan hosts. The marker field in this tree preserves the exact compound expression from uv.lock."
+    "Workspace-exclusive groups (integration, audit) are declared at the virtual root only. Mend resolvers that only read [package.dev-dependencies] (legacy key) will not detect httpx or pip-audit.",
+    "certifi and idna appear as transitive deps of both httpx (integration) and requests/pip-audit (audit). They are attributed to 'integration' in this tree (first pull-in wins). The downstream comparator should treat cross-group shared transitives as non-deterministic for group attribution.",
+    "platformdirs is a dependency of pip-audit (>=4.0) but not listed in pip-audit 2.7.3's published requires. It is omitted from the expected tree.",
+    "Resolver knowledge (SHA 877d6d84, fetched 2026-06-19) does not document explicit [package.dependency-groups] support. This probe is exploratory for that feature."
   ]
 }
