@@ -8,7 +8,7 @@
       "_security_scan_report_conclusion": "success",
       "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
       "total_libs_scanned": {
-        "gte": 14
+        "gte": 20
       },
       "_comment_total_libs_scanned": "Optional. Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries. If not provided, this check will not be performed.",
       "expected_messages": [],
@@ -25,28 +25,26 @@
       "check_update_request_sca_results": true,
       "_comment_check_update_request_sca_results": "Whether to validate extraProperties.scaResults from the update request. Parses scaResults as JSON and asserts: (1) totalFail is empty {}, (2) no results entry has level 'ERROR'. Options: true | false. Default: false",
       "expected_total_dependencies_number": {
-        "gte": 15
+        "gte": 23
       },
       "expected_direct_dependencies_number": {
-        "eq": 7
+        "eq": 4
       },
       "expected_transitive_dependencies_number": {
-        "gte": 8
+        "gte": 19
       },
       "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
       "direct_dependencies_names_list": {
         "eq": [
           "click",
-          "colorama",
           "flask",
           "httpx",
-          "pip-audit",
-          "requests",
-          "uvloop"
+          "pip-audit"
         ]
       },
       "transitive_dependencies_names_list": {
         "contains": [
+          "anyio",
           "blinker",
           "certifi",
           "charset-normalizer",
@@ -55,7 +53,17 @@
           "idna",
           "itsdangerous",
           "jinja2",
+          "markdown-it-py",
           "markupsafe",
+          "mdurl",
+          "packaging",
+          "pip",
+          "pip-api",
+          "pygments",
+          "requests",
+          "resolvelib",
+          "rich",
+          "sniffio",
           "urllib3",
           "werkzeug"
         ]
