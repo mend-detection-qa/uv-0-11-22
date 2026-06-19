@@ -1,1 +1,1 @@
-# probe-api stub
+"""API service stub."""
