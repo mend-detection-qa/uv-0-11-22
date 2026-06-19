@@ -1,7 +1,7 @@
 [project]
-name = "probe-core"
+name = "core"
 version = "0.1.0"
-description = "Workspace member: core library (no workspace-root groups)"
+description = "Core library — workspace member"
 requires-python = ">=3.11"
 dependencies = [
     "click>=8.1",
