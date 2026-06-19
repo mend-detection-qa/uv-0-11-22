@@ -1,12 +1,13 @@
-# Workspace root (virtual — no [project] section)
-# Exercises: workspace-exclusive dependency groups (uv 0.11.22)
-# and marker-ordering-semantics via [tool.uv.constraint-dependencies].
+# Virtual workspace root — no [project] section.
+# This is intentional: workspace-exclusive dependency groups live here
+# and are NOT propagated to member packages (uv 0.11.22 feature).
 
 [tool.uv.workspace]
 members = ["packages/*"]
 
-# Workspace-exclusive dependency groups (NOT exported to members).
-# uv 0.11.22 changed discovery of these groups.
+# Workspace-exclusive dependency groups (PEP 735).
+# These groups exist ONLY at the workspace root; member packages
+# do not declare or inherit them.
 [dependency-groups]
 integration = [
     "httpx>=0.27",
@@ -15,13 +16,6 @@ audit = [
     "pip-audit>=2.7",
 ]
 
-# Marker-ordering-semantics probe: compound PEP 508 markers.
-# These deps live at the workspace root level only.
-# colorama: Windows-only, compound marker (sys_platform AND python_version)
-# uvloop: non-Windows, compound marker (sys_platform OR with python_full_version)
 [tool.uv]
-dev-dependencies = [
-    "requests>=2.31",
-    "colorama>=0.4.6; sys_platform == 'win32' and python_version >= '3.11'",
-    "uvloop>=0.19; (sys_platform == 'linux' or sys_platform == 'darwin') and python_full_version >= '3.11.0'",
-]
+# Ensure the workspace-root groups are not auto-synced into members.
+# No dev-dependencies here — they go in [dependency-groups] above.
