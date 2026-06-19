@@ -1,1 +1,1 @@
-# probe-core stub
+"""Core library stub."""
