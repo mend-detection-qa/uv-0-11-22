@@ -1,10 +1,10 @@
 {
   "schema_version": "1.2",
   "pm": "uv",
-  "pm_version_tested": "0.11",
+  "pm_version_tested": "0.9.17",
   "pm_version_under_test": "0.11.22",
   "source_file": "pyproject.toml",
-  "generated_at": "2026-06-19T07:41:59Z",
+  "generated_at": "2026-06-19T00:00:00Z",
   "root": {
     "name": "workspace-exclusive-groups",
     "version": "0.0.0",
@@ -32,41 +32,69 @@
       ]
     },
     "anyio": {
-      "version": "4.4.0",
+      "version": "4.14.0",
       "source": "registry",
       "group": "integration",
       "marker": null,
       "dependencies": [
         "idna",
-        "sniffio"
+        "typing-extensions"
       ]
     },
     "blinker": {
-      "version": "1.8.2",
+      "version": "1.9.0",
       "source": "registry",
       "group": "main",
       "marker": null,
       "dependencies": []
     },
+    "boolean-py": {
+      "version": "5.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "cachecontrol": {
+      "version": "0.14.4",
+      "source": "registry",
+      "group": "audit",
+      "extras_activating_this": ["filecache"],
+      "marker": null,
+      "dependencies": [
+        "filelock",
+        "msgpack",
+        "requests"
+      ]
+    },
     "certifi": {
-      "version": "2024.8.30",
+      "version": "2026.6.17",
       "source": "registry",
       "group": "integration",
       "marker": null,
       "dependencies": []
     },
     "charset-normalizer": {
-      "version": "3.4.0",
+      "version": "3.4.7",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": []
     },
     "click": {
-      "version": "8.1.8",
+      "version": "8.4.1",
       "source": "registry",
       "group": "main",
       "marker": null,
+      "dependencies": [
+        "colorama"
+      ]
+    },
+    "colorama": {
+      "version": "0.4.6",
+      "source": "registry",
+      "group": "main",
+      "marker": "sys_platform == 'win32'",
       "dependencies": []
     },
     "core": {
@@ -83,8 +111,35 @@
         "click"
       ]
     },
+    "cyclonedx-python-lib": {
+      "version": "11.11.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "license-expression",
+        "packageurl-python",
+        "py-serializable",
+        "sortedcontainers",
+        "typing-extensions"
+      ]
+    },
+    "defusedxml": {
+      "version": "0.7.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "filelock": {
+      "version": "3.29.4",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
     "flask": {
-      "version": "3.1.1",
+      "version": "3.1.3",
       "source": "registry",
       "group": "main",
       "marker": null,
@@ -93,18 +148,19 @@
         "click",
         "itsdangerous",
         "jinja2",
+        "markupsafe",
         "werkzeug"
       ]
     },
     "h11": {
-      "version": "0.14.0",
+      "version": "0.16.0",
       "source": "registry",
       "group": "integration",
       "marker": null,
       "dependencies": []
     },
     "httpcore": {
-      "version": "1.0.7",
+      "version": "1.0.9",
       "source": "registry",
       "group": "integration",
       "marker": null,
@@ -114,7 +170,7 @@
       ]
     },
     "httpx": {
-      "version": "0.27.2",
+      "version": "0.28.1",
       "source": "registry",
       "group": "integration",
       "marker": null,
@@ -122,12 +178,11 @@
         "anyio",
         "certifi",
         "httpcore",
-        "idna",
-        "sniffio"
+        "idna"
       ]
     },
     "idna": {
-      "version": "3.10",
+      "version": "3.18",
       "source": "registry",
       "group": "integration",
       "marker": null,
@@ -141,7 +196,7 @@
       "dependencies": []
     },
     "jinja2": {
-      "version": "3.1.5",
+      "version": "3.1.6",
       "source": "registry",
       "group": "main",
       "marker": null,
@@ -149,8 +204,17 @@
         "markupsafe"
       ]
     },
+    "license-expression": {
+      "version": "30.4.4",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "boolean-py"
+      ]
+    },
     "markdown-it-py": {
-      "version": "3.0.0",
+      "version": "4.2.0",
       "source": "registry",
       "group": "audit",
       "marker": null,
@@ -159,7 +223,7 @@
       ]
     },
     "markupsafe": {
-      "version": "3.0.2",
+      "version": "3.0.3",
       "source": "registry",
       "group": "main",
       "marker": null,
@@ -172,15 +236,29 @@
       "marker": null,
       "dependencies": []
     },
+    "msgpack": {
+      "version": "1.2.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "packageurl-python": {
+      "version": "0.17.6",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
     "packaging": {
-      "version": "24.2",
+      "version": "26.2",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": []
     },
     "pip": {
-      "version": "24.3.1",
+      "version": "26.1.2",
       "source": "registry",
       "group": "audit",
       "marker": null,
@@ -196,35 +274,65 @@
       ]
     },
     "pip-audit": {
-      "version": "2.7.3",
+      "version": "2.10.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "cachecontrol",
+        "cyclonedx-python-lib",
+        "packaging",
+        "pip-api",
+        "pip-requirements-parser",
+        "platformdirs",
+        "requests",
+        "rich",
+        "tomli",
+        "tomli-w"
+      ]
+    },
+    "pip-requirements-parser": {
+      "version": "32.0.1",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": [
         "packaging",
-        "pip",
-        "pip-api",
-        "requests",
-        "resolvelib",
-        "rich"
+        "pyparsing"
       ]
     },
     "platformdirs": {
-      "version": "4.3.6",
+      "version": "4.10.0",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": []
     },
+    "py-serializable": {
+      "version": "2.1.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": [
+        "defusedxml"
+      ]
+    },
     "pygments": {
-      "version": "2.18.0",
+      "version": "2.20.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "pyparsing": {
+      "version": "3.3.2",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": []
     },
     "requests": {
-      "version": "2.32.3",
+      "version": "2.34.2",
       "source": "registry",
       "group": "audit",
       "marker": null,
@@ -235,15 +343,8 @@
         "urllib3"
       ]
     },
-    "resolvelib": {
-      "version": "1.0.1",
-      "source": "registry",
-      "group": "audit",
-      "marker": null,
-      "dependencies": []
-    },
     "rich": {
-      "version": "13.9.4",
+      "version": "15.0.0",
       "source": "registry",
       "group": "audit",
       "marker": null,
@@ -252,22 +353,43 @@
         "pygments"
       ]
     },
-    "sniffio": {
-      "version": "1.3.1",
+    "sortedcontainers": {
+      "version": "2.4.0",
       "source": "registry",
-      "group": "integration",
+      "group": "audit",
       "marker": null,
       "dependencies": []
     },
+    "tomli": {
+      "version": "2.4.1",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "tomli-w": {
+      "version": "1.2.0",
+      "source": "registry",
+      "group": "audit",
+      "marker": null,
+      "dependencies": []
+    },
+    "typing-extensions": {
+      "version": "4.15.0",
+      "source": "registry",
+      "group": "integration",
+      "marker": "python_full_version < '3.13'",
+      "dependencies": []
+    },
     "urllib3": {
-      "version": "2.2.3",
+      "version": "2.7.0",
       "source": "registry",
       "group": "audit",
       "marker": null,
       "dependencies": []
     },
     "werkzeug": {
-      "version": "3.1.3",
+      "version": "3.1.8",
       "source": "registry",
       "group": "main",
       "marker": null,
@@ -284,9 +406,15 @@
     ]
   },
   "warnings": [
-    "Workspace-exclusive groups (integration, audit) are declared at the virtual root only. Mend resolvers that only read [package.dev-dependencies] (legacy key) will not detect httpx or pip-audit.",
-    "certifi and idna appear as transitive deps of both httpx (integration) and requests/pip-audit (audit). They are attributed to 'integration' in this tree (first pull-in wins). The downstream comparator should treat cross-group shared transitives as non-deterministic for group attribution.",
-    "platformdirs is a dependency of pip-audit (>=4.0) but not listed in pip-audit 2.7.3's published requires. It is omitted from the expected tree.",
-    "Resolver knowledge (SHA 877d6d84, fetched 2026-06-19) does not document explicit [package.dependency-groups] support. This probe is exploratory for that feature."
+    "Virtual workspace root has no [project] section. root.name is a synthetic label; Mend SCA will resolve workspace members (api, core) as the actual project roots.",
+    "Workspace-exclusive groups (integration, audit) are declared at the virtual root only via [dependency-groups]. Mend resolvers that only read [tool.uv.dev-dependencies] (legacy key) will not detect httpx or pip-audit.",
+    "certifi and idna appear as transitive deps of both httpx (integration) and requests (audit, via pip-audit). They are attributed to 'integration' in this tree (first pull-in wins). The downstream comparator should treat cross-group shared transitives as non-deterministic for group attribution.",
+    "typing-extensions appears as transitive dep of both anyio (integration, python<3.13) and cyclonedx-python-lib (audit, python<3.13). Attributed to 'integration' (first pull-in). Marker python_full_version < '3.13' applies.",
+    "colorama is a conditional dep of click (sys_platform == 'win32'). It is present in the lock and included here with that marker.",
+    "cachecontrol is pulled by pip-audit with the [filecache] extra activated, which adds filelock as an additional dependency. The extras_activating_this field records this.",
+    "pip-audit 2.10.1 resolved (was 2.7.3 in the old stale tree). New transitive additions vs old tree: boolean-py, cachecontrol, cyclonedx-python-lib, defusedxml, filelock, license-expression, msgpack, packageurl-python, pip-requirements-parser, platformdirs (now present — pip-audit >=2.8 declared it), py-serializable, pyparsing, sortedcontainers, tomli, tomli-w. Removed vs old tree: resolvelib, sniffio.",
+    "sniffio was a transitive dep of httpx<0.28 (via anyio). httpx 0.28.1 dropped the sniffio dependency; anyio 4.14.0 also dropped it. sniffio is absent from this lock entirely.",
+    "The lock was generated with local uv 0.9.17 against a probe targeting uv 0.11.22 feature parity. Lock format version=1 revision=3.",
+    "Resolver knowledge: this expected tree encodes ground-truth lock resolution. Mend UA behaviour for workspace-exclusive [dependency-groups] at the virtual root is exploratory — Mend may flatten or omit group boundaries."
   ]
 }
